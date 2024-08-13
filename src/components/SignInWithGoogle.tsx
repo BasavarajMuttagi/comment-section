@@ -7,10 +7,11 @@ const SignInWithGoogle = () => {
   const handleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      const data = await signInWithPopup(auth, provider);
+      toast.success(`Welcome ${data.user.displayName}`);
     } catch (error) {
-      toast.error("Error during sign-in");
       console.error("Error during sign-in:", error);
+      toast.error("Error during sign-in");
     }
   };
   return (
