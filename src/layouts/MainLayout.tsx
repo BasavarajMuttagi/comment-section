@@ -16,11 +16,11 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
         </div>
         <div className="flex-1 rounded-2xl border-2 border-gray-200  shadow space-y-5 p-2 sm:px-5 sm:py-2">
           <div className="mt-3 flex items-center justify-between">
-            <span className="font-extrabold text-black text-sm sm:text-lg">{`Comments(${30})`}</span>
+            <span className="font-extrabold text-black text-base sm:text-lg">{`Comments(${30})`}</span>
             <FilterSwitch />
           </div>
           <CommentInput />
-          <div className=" bg-red-100">{children}</div>
+          <div>{children}</div>
         </div>
       </div>
     </ActiveFilterProvider>

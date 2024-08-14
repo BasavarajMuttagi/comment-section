@@ -1,8 +1,6 @@
+import { handleLogout } from "../firebase/apiService";
 import { useAuth } from "../hooks/useAuth";
 import SignInWithGoogle from "./SignInWithGoogle";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import toast from "react-hot-toast";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -11,14 +9,6 @@ const Profile = () => {
     return <SignInWithGoogle />;
   }
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error during sign-out:", error);
-      toast.error("Error during sign-out");
-    }
-  };
   return (
     <div className="w-full flex items-center justify-between">
       <div className="inline-flex items-center space-x-2">

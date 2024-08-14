@@ -14,9 +14,9 @@ import "@mantine/tiptap/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { twMerge } from "tailwind-merge";
 import { useRef, useState } from "react";
-const BoldIcon = () => <TextB size={20} />;
-const ItalicIcon = () => <TextItalic size={20} />;
-const UnderlineIcon = () => <TextUnderline size={20} />;
+const BoldIcon = () => <TextB size={18} />;
+const ItalicIcon = () => <TextItalic size={18} />;
+const UnderlineIcon = () => <TextUnderline size={18} />;
 
 const CommentInput = () => {
   const [, setSelectedFiles] = useState<File[]>([]);
@@ -48,34 +48,35 @@ const CommentInput = () => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
     setSelectedFileURLs((prev) => prev.filter((_, i) => i !== index));
   };
+
   return (
     <MantineProvider>
       <div className="max-w-full border-2 border-gray-200 shadow-md rounded-2xl">
         <RichTextEditor
           editor={editor}
-          className="p-3 min-h-48 flex flex-col space-y-2"
+          className="p-3 min-h-36 flex flex-col space-y-2"
         >
           <RichTextEditor.Content className="flex-1" />
-
-          <div className="border-b border-gray-500 flex items-center">
+          <div className="border-b border-gray-500 flex items-center pb-1">
             {selectedFileURLs.map((eachFile, index) => (
               <div key={index} className="relative border rounded-lg">
                 <X
-                  className="absolute top-0 right-0 cursor-pointer"
+                  size={20}
+                  className="absolute top-0 right-0 cursor-pointer bg-white rounded-full"
                   onClick={() => handleDelete(index)}
                 />
                 <img
                   src={eachFile}
-                  className="aspect-[9/16] object-contain h-20"
+                  className="aspect-square object-cover h-20 rounded-2xl"
                 />
               </div>
             ))}
           </div>
           <RichTextEditor.Toolbar className="flex justify-between">
-            <RichTextEditor.ControlsGroup className="flex space-x-2">
+            <RichTextEditor.ControlsGroup className="flex space-x-1">
               <button
                 className={twMerge(
-                  "flex items-center p-2 rounded-full text-gray-700",
+                  "p-2 rounded-full text-gray-700",
                   isActive("bold") ? "bg-stone-200" : "",
                 )}
                 onClick={() => editor.chain().focus().toggleBold().run()}
@@ -85,7 +86,7 @@ const CommentInput = () => {
               </button>
               <button
                 className={twMerge(
-                  "flex items-center p-2 rounded-full text-gray-700",
+                  "p-2 rounded-full text-gray-700",
                   isActive("italic") ? "bg-stone-200" : "",
                 )}
                 onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -95,7 +96,7 @@ const CommentInput = () => {
               </button>
               <button
                 className={twMerge(
-                  "flex items-center p-2 rounded-full text-gray-700",
+                  "p-2 rounded-full text-gray-700",
                   isActive("underline") ? "bg-stone-200" : "",
                 )}
                 onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -104,9 +105,9 @@ const CommentInput = () => {
                 <UnderlineIcon />
               </button>
 
-              <button>
+              <button className="p-2">
                 <label htmlFor="fileUpload" className="cursor-pointer">
-                  <Paperclip size={20} />
+                  <Paperclip size={18} />
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -119,9 +120,14 @@ const CommentInput = () => {
                 </label>
               </button>
             </RichTextEditor.ControlsGroup>
-            <button className="text-gray-200 bg-black rounded-md px-3 py-1 self-end">
-              Send
-            </button>
+            <div className="flex items-center space-x-2">
+              <button className="bg-gray-200 text-black rounded-md px-3 py-1 self-end">
+                Cancel
+              </button>
+              <button className="text-gray-200 bg-black rounded-md px-3 py-1 self-end">
+                Send
+              </button>
+            </div>
           </RichTextEditor.Toolbar>
         </RichTextEditor>
       </div>
